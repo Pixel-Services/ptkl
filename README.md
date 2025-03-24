@@ -14,7 +14,7 @@ To include ptkl in your project, add the following dependency and repository to 
 ### Dependency
 ```xml
 <dependency>
-    <groupId>com.pixelservices.logger</groupId>
+    <groupId>com.pixelservices</groupId>
     <artifactId>ptkl</artifactId>
     <version>${ptklversion}</version>
 </dependency>
