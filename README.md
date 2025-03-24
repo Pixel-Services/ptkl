@@ -66,7 +66,7 @@ public class Example {
 
 ## Contributing
 We welcome contributions! To contribute to ptkl:
-1. Fork the repository: [PixelToolkit on GitHub](https://github.com/Pixel-Services/ptkl)
+1. Fork the repository: [ptkl on GitHub](https://github.com/Pixel-Services/ptkl)
 2. Create a feature branch: `git checkout -b feature-name`
 3. Commit your changes: `git commit -m 'Add feature'`
 4. Push to the branch: `git push origin feature-name`
