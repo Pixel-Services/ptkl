@@ -23,7 +23,6 @@ public class FileLoggerAppender extends LoggerAppender {
             writer.write(getCurrentDateTime() + " - " + message + System.lineSeparator());
         } catch (IOException e) {
             LoggerAppenderRegistry.unRegister(this);
-            logger.error("Failed to log message to file", e);
         }
     }
 

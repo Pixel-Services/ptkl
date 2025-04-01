@@ -16,6 +16,7 @@ import java.util.List;
 public class Logger {
     private final String name;
     private final List<LoggerLogEventListener> listeners = new ArrayList<>();
+    private Level level;
     private LogFormatter formatter;
 
     /**
@@ -24,9 +25,10 @@ public class Logger {
      * @param name the name of the logger
      * @param formatter the formatter to format log messages
      */
-    protected Logger(String name, LogFormatter formatter) {
+    protected Logger(String name, LogFormatter formatter, Level level) {
         this.name = name;
         this.formatter = formatter;
+        this.level = level;
     }
 
     /**
@@ -96,6 +98,15 @@ public class Logger {
     }
 
     /**
+     * Sets the log level of the logger.
+     *
+     * @param level the level to set
+     */
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    /**
      * Adds a log event listener to the logger.
      *
      * @param listener the log event listener to add
@@ -129,11 +140,11 @@ public class Logger {
      * @param message the message to log
      */
     private void log(Level level, String message) {
+        if (level.ordinal() < this.level.ordinal()) return;
         LogEvent event = new LogEvent(level, name, message);
         boolean isCancelled = notifyListeners(level, message);
         if (isCancelled) return;
         String formattedMessage = formatter.format(event);
-
         for (LoggerAppender appender : LoggerAppenderRegistry.getAppenders()) {
             appender.log(formattedMessage);
         }

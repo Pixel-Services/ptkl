@@ -3,6 +3,7 @@ package com.pixelservices.logger;
 import com.pixelservices.logger.events.LoggerCreateEvent;
 import com.pixelservices.logger.formatter.LogFormatter;
 import com.pixelservices.logger.formatter.SimpleLogFormatter;
+import com.pixelservices.logger.level.Level;
 import com.pixelservices.logger.listeners.Listener;
 import com.pixelservices.logger.listeners.LoggerCreateEventListener;
 import com.pixelservices.logger.listeners.LoggerLogEventListener;
@@ -19,7 +20,7 @@ public class LoggerFactory {
     private static final ConcurrentMap<String, Logger> loggerCache = new ConcurrentHashMap<>();
     private static final List<Listener> listeners = new ArrayList<>();
     private static LogFormatter formatter = new SimpleLogFormatter();
-    private static LoggerConfiguration configuration = LoggerConfiguration.createLoggerConfiguration();
+    private static final LoggerConfiguration configuration = new LoggerConfiguration();
 
     /**
      * Returns a Logger for the specified class.
@@ -50,6 +51,18 @@ public class LoggerFactory {
         LoggerFactory.formatter = formatter;
         for (Logger logger : loggerCache.values()) {
             logger.setFormatter(formatter);
+        }
+    }
+
+    /**
+     * Sets the log level for all loggers.
+     *
+     * @param level the log level to set
+     */
+    public static void setLevel(Level level) {
+        configuration.setLevel(level);
+        for (Logger logger : loggerCache.values()) {
+            logger.setLevel(level);
         }
     }
 
@@ -111,7 +124,7 @@ public class LoggerFactory {
      * @return the created logger
      */
     private static Logger createLogger(String name) {
-        Logger logger = new Logger(name, formatter);
+        Logger logger = new Logger(name, formatter, configuration.getLevel());
         LoggerCreateEvent event = new LoggerCreateEvent(logger);
         for (Listener listener : listeners) {
             if (listener instanceof LoggerCreateEventListener) {

@@ -1,28 +1,15 @@
 package com.pixelservices.logger;
 
-import com.pixelservices.config.ConfigFactory;
-import com.pixelservices.config.YamlConfig;
 import com.pixelservices.logger.appenders.ConsoleLoggerAppender;
 import com.pixelservices.logger.appenders.LoggerAppenderRegistry;
 import com.pixelservices.logger.level.Level;
 import org.simpleyaml.configuration.ConfigurationSection;
 
 public class LoggerConfiguration {
-    private Level level = Level.INFO;
+    private Level level;
 
-    static LoggerConfiguration createLoggerConfiguration() {
-        YamlConfig config = ConfigFactory.getYamlConfig("logger.yml");
-        if (config.toString().isEmpty()) {
-            return new LoggerConfiguration();
-        }
-        try {
-            return new LoggerConfiguration(config);
-        } catch (Exception e) {
-            return new LoggerConfiguration();
-        }
-    }
-
-    private LoggerConfiguration() {
+    LoggerConfiguration() {
+        this.level = Level.INFO;
         ConsoleLoggerAppender appender = new ConsoleLoggerAppender();
         LoggerAppenderRegistry.register(appender);
     }

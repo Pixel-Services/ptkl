@@ -5,7 +5,6 @@ import com.pixelservices.logger.LoggerFactory;
 import com.pixelservices.logger.level.Level;
 
 public abstract class LoggerAppender {
-    final Logger logger = LoggerFactory.getLogger("PTKL");
     private final Level level;
 
     public LoggerAppender() {
