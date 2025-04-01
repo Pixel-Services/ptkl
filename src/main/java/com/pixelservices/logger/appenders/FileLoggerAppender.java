@@ -6,13 +6,24 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a file logger appender.
+ */
 public class FileLoggerAppender extends LoggerAppender {
     private final File file;
 
+    /**
+     * Initializes a new instance of the {@link FileLoggerAppender} class.
+     */
     public FileLoggerAppender() {
         this.file = new File("/logs/" + getCurrentDateTime() + ".log");
     }
 
+    /**
+     * Initializes a new instance of the {@link FileLoggerAppender} class with the specified file.
+     *
+     * @param file the file to log to
+     */
     public FileLoggerAppender(File file) {
         this.file = file;
     }

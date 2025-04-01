@@ -66,10 +66,6 @@ public class LoggerFactory {
         }
     }
 
-    public LoggerConfiguration getLoggerConfiguration() {
-        return configuration;
-    }
-
     /**
      * Registers a listener to handle logger events.
      *
