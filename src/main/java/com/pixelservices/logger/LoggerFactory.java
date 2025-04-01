@@ -19,6 +19,7 @@ public class LoggerFactory {
     private static final ConcurrentMap<String, Logger> loggerCache = new ConcurrentHashMap<>();
     private static final List<Listener> listeners = new ArrayList<>();
     private static LogFormatter formatter = new SimpleLogFormatter();
+    private static LoggerConfiguration configuration = LoggerConfiguration.createLoggerConfiguration();
 
     /**
      * Returns a Logger for the specified class.
@@ -50,6 +51,10 @@ public class LoggerFactory {
         for (Logger logger : loggerCache.values()) {
             logger.setFormatter(formatter);
         }
+    }
+
+    public LoggerConfiguration getLoggerConfiguration() {
+        return configuration;
     }
 
     /**

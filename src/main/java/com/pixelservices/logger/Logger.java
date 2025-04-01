@@ -1,5 +1,7 @@
 package com.pixelservices.logger;
 
+import com.pixelservices.logger.appenders.LoggerAppender;
+import com.pixelservices.logger.appenders.LoggerAppenderRegistry;
 import com.pixelservices.logger.events.LogEvent;
 import com.pixelservices.logger.formatter.LogFormatter;
 import com.pixelservices.logger.level.Level;
@@ -33,6 +35,7 @@ public class Logger {
      * @param clazz the class for which to get the logger
      * @return the logger for the specified class
      */
+    @Deprecated
     public static Logger getLogger(Class<?> clazz) {
         return LoggerFactory.getLogger(clazz.getSimpleName());
     }
@@ -130,7 +133,10 @@ public class Logger {
         boolean isCancelled = notifyListeners(level, message);
         if (isCancelled) return;
         String formattedMessage = formatter.format(event);
-        System.out.println(formattedMessage);
+
+        for (LoggerAppender appender : LoggerAppenderRegistry.getAppenders()) {
+            appender.log(formattedMessage);
+        }
     }
 
     /**
